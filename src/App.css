@@ -1,8 +1,43 @@
 
 .container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.add-group-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.group-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.group-select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-width: 120px;
+}
+
+.group-section {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.group-section h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.2em;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
 }
 
 .add-todo-form {
