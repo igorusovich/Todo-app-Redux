@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addTodo,
-  toggleTodo,
-  deleteTodo,
+  addTodoAsync,
+  toggleTodoAsync,
+  deleteTodoAsync,
   addGroup,
 } from "./features/todoSlice";
 import "./App.css";
@@ -18,7 +18,7 @@ export default function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.trim()) {
-      dispatch(addTodo({ text: input.trim(), group: selectedGroup }));
+      dispatch(addTodoAsync({ text: input.trim(), group: selectedGroup }));
       setInput("");
     }
   };
@@ -83,7 +83,7 @@ export default function App() {
                   <input
                     type="checkbox"
                     checked={todo.completed}
-                    onChange={() => dispatch(toggleTodo(todo.id))}
+                    onChange={() => dispatch(toggleTodoAsync(todo.id))}
                   />
                   <span
                     style={{
@@ -93,7 +93,7 @@ export default function App() {
                     {todo.text}
                   </span>
                   <button
-                    onClick={() => dispatch(deleteTodo(todo.id))}
+                    onClick={() => dispatch(deleteTodoAsync(todo.id))}
                     className="delete-button"
                   >
                     Delete
