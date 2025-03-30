@@ -1,37 +1,38 @@
-
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setUser } from '../features/authSlice';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../features/authSlice'
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+  const [isLogin, setIsLogin] = useState(true)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const endpoint = `${import.meta.env.VITE_API_URL}/auth/${isLogin ? 'login' : 'register'}`;
-    
+  const handleSubmit = async e => {
+    e.preventDefault()
+    // Add fallback for API URL if environment variable is not defined
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
+    const endpoint = `${apiUrl}/auth/${isLogin ? 'login' : 'register'}`
+
     try {
       const response = await fetch(endpoint, {
         credentials: 'include',
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
-      });
-      
-      const data = await response.json();
+      })
+
+      const data = await response.json()
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        dispatch(setUser({ token: data.token }));
+        localStorage.setItem('token', data.token)
+        dispatch(setUser({ token: data.token }))
       } else {
-        alert(data.message);
+        alert(data.message)
       }
     } catch (error) {
-      console.error('Auth error:', error);
+      console.error('Auth error:', error)
     }
-  };
+  }
 
   return (
     <div className="auth-container">
@@ -41,13 +42,13 @@ const Auth = () => {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={e => setPassword(e.target.value)}
         />
         <button type="submit">{isLogin ? 'Login' : 'Register'}</button>
       </form>
@@ -55,7 +56,7 @@ const Auth = () => {
         {isLogin ? 'Need an account? Register' : 'Have an account? Login'}
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Auth;
+export default Auth

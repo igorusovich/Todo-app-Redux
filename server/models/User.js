@@ -1,6 +1,5 @@
-
-import mongoose from 'mongoose';
-import bcrypt from 'bcryptjs';
+import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs'
 
 const UserSchema = new mongoose.Schema({
   email: {
@@ -11,14 +10,20 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  username: {
+    type: String,
+    sparse: true,
+    unique: true,
+    default: null
   }
-});
+})
 
 // Hash password before saving
-UserSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next()
+  this.password = await bcrypt.hash(this.password, 10)
+  next()
+})
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema)
