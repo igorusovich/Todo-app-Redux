@@ -15,5 +15,51 @@ build = ["npm", "run", "build"]
 publicDir = "dist"
 
 [[ports]]
+localPort = 3000
+externalPort = 3000
+
+[[ports]]
+localPort = 3001
+externalPort = 3001
+
+[[ports]]
 localPort = 5173
 externalPort = 80
+
+[workflows]
+runButton = "Dev Server"
+
+[[workflows.workflow]]
+name = "Dev Server"
+author = 1025149
+mode = "parallel"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd client && npm run dev"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd server && npm run dev"
+
+[[workflows.workflow]]
+name = "Install dependencies"
+mode = "sequential"
+author = 1025149
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd client && npm i"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd server && npm i"
+
+[[workflows.workflow]]
+name = "Start frontend"
+mode = "sequential"
+author = 1025149
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd client && npm run dev"
